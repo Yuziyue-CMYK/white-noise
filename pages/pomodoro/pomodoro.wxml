@@ -1,0 +1,39 @@
+<!-- pages/pomodoro/pomodoro.wxml —— 番茄时钟 -->
+<view class="page {{theme === 'light' ? 'theme-light' : 'theme-dark'}}">
+
+  <view class="section-title">时长方案</view>
+  <view class="plans">
+    <view
+      class="plan {{planIdx === index ? 'on' : ''}}"
+      wx:for="{{plans}}"
+      wx:key="label"
+      bindtap="pickPlan"
+      data-idx="{{index}}">{{item.label}}</view>
+  </view>
+
+  <!-- 计时盘 -->
+  <view class="dial {{phase === 'work' ? 'work' : phase === 'rest' ? 'rest' : ''}}">
+    <view class="phase-tag">
+      {{phase === 'work' ? '专注中' : phase === 'rest' ? '休息中' : '准备专注'}}
+    </view>
+    <view class="time">{{display}}</view>
+    <view class="progress-track">
+      <view class="progress-fill" style="width: {{progress}}%"></view>
+    </view>
+    <view class="cycle-info">已完成 {{cycles}} 个番茄 🍅</view>
+  </view>
+
+  <!-- 控制按钮 -->
+  <view class="controls">
+    <view class="ctrl sub" bindtap="reset">重置</view>
+    <view class="ctrl main {{running ? 'pause' : ''}}" bindtap="startPause">
+      {{running ? '暂停' : phase === 'idle' ? '开始专注' : '继续'}}
+    </view>
+    <view class="ctrl sub" bindtap="skip">跳过</view>
+  </view>
+
+  <view class="pomo-tip">
+    专注阶段建议搭配「播放」页的白噪声；阶段切换时会有钟声与振动提示
+  </view>
+
+</view>

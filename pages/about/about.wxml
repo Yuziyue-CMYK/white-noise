@@ -1,0 +1,54 @@
+<!-- pages/about/about.wxml —— 关于页 -->
+<view class="page page-tab {{theme === 'light' ? 'theme-light' : 'theme-dark'}}">
+
+  <view class="hero">
+    <view class="logo">静 界</view>
+    <view class="ver">v2.0.0 · 微信小程序</view>
+  </view>
+
+  <view class="card block">
+    <view class="h">这是什么？</view>
+    <view class="p">静界是一款白噪声助眠 / 专注小程序。它不使用任何音频文件，
+      全部声音由 Web Audio API 实时合成：把白噪声、粉噪声、布朗噪声经过
+      滤波与低频调制，叠加随机事件音，模拟出雨声、海浪、篝火等自然环境声。</view>
+  </view>
+
+  <view class="card block">
+    <view class="h">核心特性</view>
+    <view class="li">· 11 种环境声（8 自然 + 3 ASMR），任意组合混音</view>
+    <view class="li">· 番茄时钟：25/5 等三种方案，阶段切换钟声提示</view>
+    <view class="li">· 呼吸训练：4-7-8 助眠与箱式呼吸动画引导</view>
+    <view class="li">· 正念冥想：颂钵钟声与引导语定时陪伴</view>
+    <view class="li">· 睡眠定时，最后 30 秒平滑淡出</view>
+    <view class="li">· 8 个推荐场景 + 自定义场景收藏</view>
+    <view class="li">· 深浅双主题，白天黑夜都舒适</view>
+    <view class="li">· 零音频资源，安装包不到 100KB</view>
+  </view>
+
+  <view class="card block">
+    <view class="h">自然声音</view>
+    <view class="tags">
+      <text class="tag" wx:for="{{natureSounds}}" wx:key="*this">{{item}}</text>
+    </view>
+    <view class="h" style="margin-top: 26rpx;">ASMR</view>
+    <view class="tags">
+      <text class="tag" wx:for="{{asmrSounds}}" wx:key="*this">{{item}}</text>
+    </view>
+  </view>
+
+  <view class="card block">
+    <view class="h">开发团队</view>
+    <view class="p">团队：{{team.name}}</view>
+    <view class="p">组长：{{team.leader}}</view>
+    <view class="p">组员：{{team.members}}</view>
+  </view>
+
+  <view class="card block">
+    <view class="h">技术栈</view>
+    <view class="p">微信小程序原生框架 + Web Audio API</view>
+    <view class="p">开发工具：微信开发者工具（基础库 ≥ 2.19.0）</view>
+  </view>
+
+  <view class="footer">让世界安静下来 🌙</view>
+
+</view>

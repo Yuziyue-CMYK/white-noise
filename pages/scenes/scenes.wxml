@@ -1,0 +1,40 @@
+<!-- pages/scenes/scenes.wxml —— 场景页 -->
+<view class="page page-tab {{theme === 'light' ? 'theme-light' : 'theme-dark'}}">
+
+  <view class="section-title">推荐场景</view>
+  <view class="grid">
+    <view
+      class="card scene-card"
+      wx:for="{{presets}}"
+      wx:key="name"
+      bindtap="applyPreset"
+      data-idx="{{index}}">
+      <view class="emoji">{{item.emoji}}</view>
+      <view class="name">{{item.name}}</view>
+      <view class="desc">{{item.desc}}</view>
+    </view>
+  </view>
+
+  <view class="section-title">我的场景</view>
+
+  <view wx:if="{{myScenes.length === 0}}" class="empty">
+    <view class="empty-emoji">✦</view>
+    <view>还没有保存的场景</view>
+    <view class="empty-tip">在「播放」页组合声音后，点击「存场景」即可保存</view>
+  </view>
+
+  <view
+    class="card my-card"
+    wx:for="{{myScenes}}"
+    wx:key="time"
+    bindtap="applyMine"
+    data-idx="{{index}}">
+    <view class="my-main">
+      <view class="name">{{item.name}}</view>
+      <view class="desc">{{item.mixText || ''}}</view>
+      <view class="time">保存于 {{item.time}}</view>
+    </view>
+    <view class="del" catchtap="deleteMine" data-idx="{{index}}">删除</view>
+  </view>
+
+</view>

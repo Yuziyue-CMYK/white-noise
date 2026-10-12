@@ -1,0 +1,152 @@
+<!-- pages/index/index.wxml —— 主播放页（沉浸式） -->
+<view class="immersive {{theme === 'light' ? 'theme-light' : 'theme-dark'}}">
+
+  <!-- 全屏氛围背景：随所点声音切换场景色调 -->
+  <view class="mood-bg" style="{{moodStyle}}"></view>
+
+  <!-- 动态特效层：雨点/闪电/火星/萤火/波浪（Canvas 粒子，零图片） -->
+  <canvas type="2d" id="fx" class="fx-canvas"></canvas>
+
+  <!-- 暗角遮罩：保证前景文字可读 -->
+  <view class="vignette"></view>
+
+  <!-- 前景内容层 -->
+  <view class="fg">
+
+    <!-- 顶栏：仅保留主题切换（品牌名已在导航栏标题） -->
+    <view class="topbar">
+      <view class="topbar-space"></view>
+      <view class="theme-btn" bindtap="toggleTheme">
+        {{theme === 'light' ? '🌙' : '☀️'}}
+      </view>
+    </view>
+
+    <!-- 当前场景展示区 -->
+    <view class="now">
+      <view class="now-names">{{activeNames || '选择一种声音'}}</view>
+      <view class="now-sub">{{allPlaying ? '正在播放 · 全部声音实时合成' : '雨声 · 海浪 · 篝火 · ASMR'}}</view>
+
+      <!-- 播放中的声音：独立音量条 -->
+      <view class="vol-list" wx:if="{{allPlaying}}">
+        <block wx:for="{{sounds}}" wx:key="id">
+          <view class="vol-item" wx:if="{{item.playing}}">
+            <view class="vol-name">{{item.emoji}} {{item.name}}</view>
+            <slider
+              class="vol-slider"
+              min="0" max="100" step="1"
+              value="{{item.volume}}"
+              activeColor="{{accentColor}}"
+              backgroundColor="rgba(128,128,128,0.3)"
+              block-size="16"
+              block-color="{{accentColor}}"
+              catchtap="noop"
+              bindchanging="onVolume"
+              bindchange="onVolume"
+              data-id="{{item.id}}" />
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- 声音选择：横向滑动胶囊条 -->
+    <scroll-view class="rail" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="rail-track">
+        <view class="rail-label">自然</view>
+        <block wx:for="{{sounds}}" wx:key="id">
+          <view
+            wx:if="{{item.cat === 'nature'}}"
+            class="chip {{item.playing ? 'on' : ''}}"
+            bindtap="toggleSound"
+            data-id="{{item.id}}">
+            <text class="chip-emoji">{{item.emoji}}</text>
+            <text class="chip-name">{{item.name}}</text>
+          </view>
+        </block>
+        <view class="rail-label">ASMR</view>
+        <block wx:for="{{sounds}}" wx:key="id">
+          <view
+            wx:if="{{item.cat === 'asmr'}}"
+            class="chip {{item.playing ? 'on' : ''}}"
+            bindtap="toggleSound"
+            data-id="{{item.id}}">
+            <text class="chip-emoji">{{item.emoji}}</text>
+            <text class="chip-name">{{item.name}}</text>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+
+    <!-- 底部留白 -->
+    <view class="bottom-space"></view>
+
+    <!-- 底部控制条：悬浮玻璃胶囊 -->
+    <view class="bar">
+      <view class="btn-play {{allPlaying ? 'on' : ''}}" bindtap="toggleAll">
+        {{allPlaying ? '⏸' : '▶'}}
+      </view>
+
+      <view class="bar-item" bindtap="showTimer">
+        <view class="bar-icon">⏱</view>
+        <view class="bar-text {{timerLeft > 0 ? 'on' : ''}}">{{timerText}}</view>
+      </view>
+
+      <view class="bar-item" bindtap="openSave">
+        <view class="bar-icon">✦</view>
+        <view class="bar-text">存场景</view>
+      </view>
+
+      <view class="bar-vol">
+        <view class="bar-icon">🔊</view>
+        <slider
+          class="master-slider"
+          min="0" max="100"
+          value="{{masterVolume}}"
+          activeColor="{{accentColor}}"
+          backgroundColor="rgba(128,128,128,0.3)"
+          block-size="14"
+          block-color="{{accentColor}}"
+          bindchanging="onMasterVolume"
+          bindchange="onMasterVolume" />
+      </view>
+    </view>
+
+  </view>
+
+  <!-- 睡眠定时弹窗 -->
+  <view class="mask" wx:if="{{timerModal}}" bindtap="hideTimer">
+    <view class="modal" catchtap="noop">
+      <view class="modal-title">睡眠定时</view>
+      <view class="timer-opts">
+        <view
+          class="timer-opt"
+          wx:for="{{timerOptions}}"
+          wx:key="value"
+          bindtap="startTimer"
+          data-min="{{item.value}}">{{item.label}}</view>
+      </view>
+      <view class="modal-cancel danger" wx:if="{{timerLeft > 0}}" bindtap="cancelTimer">
+        取消定时（剩余 {{timerText}}）
+      </view>
+      <view class="modal-cancel" bindtap="hideTimer">关闭</view>
+    </view>
+  </view>
+
+  <!-- 保存场景弹窗 -->
+  <view class="mask" wx:if="{{saveModal}}" bindtap="closeSave">
+    <view class="modal" catchtap="noop">
+      <view class="modal-title">保存当前组合</view>
+      <input
+        class="input"
+        placeholder="给这个场景起个名字"
+        placeholder-class="ph"
+        value="{{sceneName}}"
+        bindinput="onNameInput"
+        maxlength="12" />
+      <view class="modal-actions">
+        <view class="btn-text" bindtap="closeSave">取消</view>
+        <view class="btn-primary" bindtap="saveScene">保存</view>
+      </view>
+    </view>
+  </view>
+
+</view>

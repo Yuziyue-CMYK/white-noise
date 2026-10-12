@@ -1,0 +1,33 @@
+<!-- pages/meditate/meditate.wxml —— 正念冥想 -->
+<view class="page {{theme === 'light' ? 'theme-light' : 'theme-dark'}}">
+
+  <view class="section-title">冥想时长</view>
+  <view class="presets">
+    <view
+      class="preset {{min === item && !running ? 'on' : ''}}"
+      wx:for="{{presets}}"
+      wx:key="*this"
+      bindtap="pickMin"
+      data-min="{{item}}">{{item}} 分钟</view>
+  </view>
+
+  <!-- 冥想舞台 -->
+  <view class="stage">
+    <view class="halo"></view>
+    <view class="lotus">🪷</view>
+    <view class="time">{{display}}</view>
+    <view class="progress-track">
+      <view class="progress-fill" style="width: {{progress}}%"></view>
+    </view>
+    <view class="quote">{{quote}}</view>
+  </view>
+
+  <view class="med-btn {{running && !paused ? 'stop' : ''}}" bindtap="toggle">
+    {{running ? (paused ? '继续' : '暂停') : '开始冥想'}}
+  </view>
+
+  <view class="med-tip">
+    开始与结束各有一声颂钵钟声；建议同时到「播放」页打开虫鸣或微风
+  </view>
+
+</view>

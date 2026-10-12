@@ -1,0 +1,91 @@
+/* pages/focus/focus.wxss —— 专注页样式 */
+
+/* 统计卡片 */
+.stat-card {
+  display: flex;
+  align-items: center;
+  padding: 36rpx 20rpx;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-num {
+  font-size: 64rpx;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  font-size: 22rpx;
+  color: var(--sub);
+  margin-top: 4rpx;
+}
+
+.stat-divider {
+  width: 1rpx;
+  height: 70rpx;
+  background: var(--border);
+}
+
+/* 功能入口 */
+.entry {
+  display: flex;
+  align-items: center;
+  gap: 26rpx;
+  margin-bottom: 24rpx;
+  padding: 34rpx 30rpx;
+  transition: transform 0.2s ease;
+}
+
+.entry:active {
+  transform: scale(0.98);
+}
+
+.entry-icon {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 30rpx;
+  background: var(--accent-soft);
+  border: 1rpx solid var(--glass-border);
+  box-shadow: inset 0 2rpx 0 var(--highlight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 52rpx;
+  flex-shrink: 0;
+}
+
+.entry-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.entry-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.entry-desc {
+  font-size: 23rpx;
+  color: var(--sub);
+  margin-top: 6rpx;
+}
+
+.entry-arrow {
+  font-size: 44rpx;
+  color: var(--faint);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.focus-tip {
+  text-align: center;
+  font-size: 22rpx;
+  color: var(--faint);
+  padding: 20rpx 40rpx;
+}

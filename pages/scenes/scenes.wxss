@@ -1,0 +1,97 @@
+/* pages/scenes/scenes.wxss —— 场景页样式 */
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 30rpx;
+}
+
+.scene-card {
+  width: 330rpx;
+  margin-bottom: 24rpx;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.scene-card:active {
+  transform: scale(0.96);
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+}
+
+.emoji {
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  border: 1rpx solid var(--glass-border);
+  box-shadow: inset 0 2rpx 0 var(--highlight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 52rpx;
+  margin: 14rpx auto 16rpx;
+}
+
+.name {
+  font-size: 29rpx;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 2rpx;
+}
+
+.desc {
+  font-size: 22rpx;
+  color: var(--sub);
+  margin-top: 6rpx;
+}
+
+/* ---------- 我的场景 ---------- */
+.my-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.my-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.time {
+  font-size: 20rpx;
+  color: var(--faint);
+  margin-top: 6rpx;
+}
+
+.del {
+  flex-shrink: 0;
+  margin-left: 20rpx;
+  font-size: 24rpx;
+  color: var(--danger);
+  padding: 10rpx 20rpx;
+  border-radius: 12rpx;
+  background: rgba(255, 157, 157, 0.1);
+}
+
+/* ---------- 空状态 ---------- */
+.empty {
+  text-align: center;
+  color: var(--faint);
+  font-size: 26rpx;
+  padding: 80rpx 40rpx;
+}
+
+.empty-emoji {
+  font-size: 64rpx;
+  margin-bottom: 20rpx;
+  color: var(--faint);
+}
+
+.empty-tip {
+  font-size: 22rpx;
+  margin-top: 14rpx;
+  color: var(--faint);
+}

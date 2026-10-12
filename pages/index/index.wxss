@@ -1,0 +1,323 @@
+/* pages/index/index.wxss —— 主播放页（沉浸式） */
+
+/* ========== 全屏氛围层 ========== */
+.immersive {
+  position: relative;
+  min-height: 100vh;
+  color: var(--text);
+  overflow: hidden;
+}
+
+/* 氛围背景：JS 注入渐变 + 光晕，CSS 负责平滑过渡 */
+.mood-bg {
+  position: absolute;
+  inset: 0;
+  transition: background 0.8s ease, box-shadow 0.8s ease;
+}
+
+/* 动态特效画布：铺满全屏，不拦截触摸 */
+.fx-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* 暗角：四边压暗，突出中央内容 */
+.vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 40%, transparent 45%, rgba(0, 0, 0, 0.30) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, transparent 20%,
+      transparent 70%, rgba(0, 0, 0, 0.35) 100%);
+  pointer-events: none;
+}
+
+/* 浅色主题下减弱暗角强度 */
+.theme-light .vignette {
+  background:
+    radial-gradient(ellipse at 50% 40%, transparent 50%, rgba(15, 20, 32, 0.12) 100%),
+    linear-gradient(180deg, rgba(15, 20, 32, 0.10) 0%, transparent 20%,
+      transparent 72%, rgba(15, 20, 32, 0.16) 100%);
+}
+
+/* ========== 前景内容 ========== */
+.fg {
+  position: relative;
+  z-index: 1;
+  padding: 30rpx 30rpx 0;
+}
+
+/* 顶栏 */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16rpx;
+}
+
+/* 顶栏：占位保持主题按钮靠右 */
+.topbar-space {
+  flex: 1;
+}
+
+.theme-btn {
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1rpx solid var(--glass-border);
+  box-shadow: inset 0 2rpx 0 var(--highlight), 0 4rpx 20rpx var(--shadow);
+  backdrop-filter: blur(40rpx) saturate(1.6);
+  -webkit-backdrop-filter: blur(40rpx) saturate(1.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+}
+
+/* ========== 当前场景展示 ========== */
+.now {
+  text-align: center;
+  padding: 90rpx 30rpx 50rpx;
+}
+
+.now-names {
+  font-size: 64rpx;
+  font-weight: 200;
+  letter-spacing: 6rpx;
+  color: var(--text);
+}
+
+/* 深色主题加文字投影增强可读性，浅色不需要 */
+.theme-dark .now-names {
+  text-shadow: 0 4rpx 30rpx rgba(0, 0, 0, 0.35);
+}
+
+.now-sub {
+  margin-top: 18rpx;
+  font-size: 22rpx;
+  letter-spacing: 5rpx;
+  color: var(--sub);
+}
+
+/* 播放中声音的音量条浮层 */
+.vol-list {
+  margin-top: 56rpx;
+  background: var(--card);
+  border: 1rpx solid var(--glass-border);
+  border-radius: 32rpx;
+  padding: 10rpx 30rpx;
+  backdrop-filter: blur(48rpx) saturate(1.7);
+  -webkit-backdrop-filter: blur(48rpx) saturate(1.7);
+  box-shadow: inset 0 2rpx 0 var(--highlight), 0 8rpx 40rpx var(--shadow);
+}
+
+.vol-item {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 18rpx 0;
+}
+
+.vol-item + .vol-item {
+  border-top: 1rpx solid var(--border);
+}
+
+.vol-name {
+  font-size: 26rpx;
+  color: var(--text);
+  flex-shrink: 0;
+  width: 170rpx;
+  text-align: left;
+}
+
+.vol-slider {
+  flex: 1;
+  margin: 0;
+}
+
+/* ========== 声音选择胶囊条 ========== */
+.rail {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(170rpx + env(safe-area-inset-bottom));
+  white-space: nowrap;
+  z-index: 40;
+}
+
+.rail-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 10rpx 30rpx;
+}
+
+.rail-label {
+  font-size: 20rpx;
+  letter-spacing: 6rpx;
+  color: var(--faint);
+  padding: 0 8rpx;
+  flex-shrink: 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 18rpx 30rpx;
+  border-radius: 999rpx;
+  background: var(--card);
+  border: 1rpx solid var(--glass-border);
+  backdrop-filter: blur(40rpx) saturate(1.6);
+  -webkit-backdrop-filter: blur(40rpx) saturate(1.6);
+  box-shadow: inset 0 1rpx 0 var(--highlight);
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.chip:active {
+  transform: scale(0.93);
+}
+
+.chip.on {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+  box-shadow: 0 0 26rpx var(--glow), inset 0 1rpx 0 var(--highlight);
+}
+
+.chip-emoji {
+  font-size: 32rpx;
+}
+
+.chip-name {
+  font-size: 26rpx;
+  color: var(--text);
+}
+
+.chip.on .chip-name {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* 底部留白 */
+.bottom-space {
+  height: 320rpx;
+}
+
+/* ========== 底部控制条 ========== */
+.bar {
+  position: fixed;
+  left: 24rpx;
+  right: 24rpx;
+  bottom: calc(24rpx + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 18rpx 22rpx;
+  border-radius: 48rpx;
+  background: var(--bar-glass);
+  border: 1rpx solid var(--glass-border);
+  box-shadow: 0 16rpx 50rpx var(--shadow), inset 0 2rpx 0 var(--highlight);
+  backdrop-filter: blur(56rpx) saturate(1.8);
+  -webkit-backdrop-filter: blur(56rpx) saturate(1.8);
+  z-index: 50;
+}
+
+.btn-play {
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1rpx solid var(--glass-border);
+  box-shadow: inset 0 2rpx 0 var(--highlight);
+  color: var(--text);
+  font-size: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.btn-play.on {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: transparent;
+  box-shadow: 0 6rpx 24rpx var(--glow);
+}
+
+.bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 999rpx;
+  background: var(--card);
+  border: 1rpx solid var(--glass-border);
+  box-shadow: inset 0 1rpx 0 var(--highlight);
+  flex-shrink: 0;
+}
+
+.bar-icon {
+  font-size: 32rpx;
+}
+
+.bar-text {
+  font-size: 20rpx;
+  color: var(--sub);
+}
+
+.bar-text.on {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.bar-vol {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  min-width: 0;
+}
+
+.master-slider {
+  flex: 1;
+  margin: 0;
+}
+
+/* ========== 弹窗 ========== */
+.timer-opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.timer-opt {
+  width: 250rpx;
+  text-align: center;
+  padding: 22rpx 0;
+  border-radius: 18rpx;
+  background: var(--accent-soft);
+  border: 1rpx solid var(--accent-border);
+  color: var(--accent);
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.modal-cancel {
+  text-align: center;
+  margin-top: 24rpx;
+  padding: 18rpx 0;
+  border-radius: 18rpx;
+  background: var(--card);
+  color: var(--sub);
+  font-size: 26rpx;
+}
+
+.modal-cancel.danger {
+  color: var(--danger);
+}

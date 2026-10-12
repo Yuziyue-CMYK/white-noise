@@ -1,0 +1,50 @@
+<!-- pages/focus/focus.wxml —— 专注页 -->
+<view class="page page-tab {{theme === 'light' ? 'theme-light' : 'theme-dark'}}">
+
+  <!-- 今日统计 -->
+  <view class="card stat-card">
+    <view class="stat-item">
+      <view class="stat-num">{{todayMin}}</view>
+      <view class="stat-label">今日专注（分钟）</view>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <view class="stat-num">{{cycles}}</view>
+      <view class="stat-label">完成番茄（个）</view>
+    </view>
+  </view>
+
+  <view class="section-title">专注工具</view>
+
+  <view class="card entry" bindtap="go" data-url="/pages/pomodoro/pomodoro">
+    <view class="entry-icon">🍅</view>
+    <view class="entry-main">
+      <view class="entry-name">番茄时钟</view>
+      <view class="entry-desc">25 分钟专注 + 5 分钟休息，循环推进</view>
+    </view>
+    <view class="entry-arrow">›</view>
+  </view>
+
+  <view class="card entry" bindtap="go" data-url="/pages/breathe/breathe">
+    <view class="entry-icon">🫁</view>
+    <view class="entry-main">
+      <view class="entry-name">呼吸训练</view>
+      <view class="entry-desc">4-7-8 助眠 / 箱式呼吸，动画引导</view>
+    </view>
+    <view class="entry-arrow">›</view>
+  </view>
+
+  <view class="card entry" bindtap="go" data-url="/pages/meditate/meditate">
+    <view class="entry-icon">🧘</view>
+    <view class="entry-main">
+      <view class="entry-name">正念冥想</view>
+      <view class="entry-desc">颂钵钟声相伴，定时收束心绪</view>
+    </view>
+    <view class="entry-arrow">›</view>
+  </view>
+
+  <view class="focus-tip">
+    小贴士：搭配「播放」页的键盘声 + 细雨，专注效果更佳
+  </view>
+
+</view>

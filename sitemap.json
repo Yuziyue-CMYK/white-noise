@@ -1,0 +1,9 @@
+{
+  "desc": "静界白噪声小程序 sitemap",
+  "rules": [
+    {
+      "action": "allow",
+      "page": "*"
+    }
+  ]
+}

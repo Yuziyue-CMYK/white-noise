@@ -1,0 +1,128 @@
+/* pages/breathe/breathe.wxss —— 呼吸训练样式 */
+
+/* 模式选择 */
+.modes {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 50rpx;
+}
+
+.mode {
+  flex: 1;
+  text-align: center;
+  padding: 26rpx 16rpx;
+  border-radius: 20rpx;
+  background: var(--card);
+  border: 1rpx solid var(--border);
+}
+
+.mode.on {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+}
+
+.mode-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.mode.on .mode-name {
+  color: var(--accent);
+}
+
+.mode-desc {
+  font-size: 20rpx;
+  color: var(--sub);
+  margin-top: 8rpx;
+}
+
+/* 呼吸圆舞台 */
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 0 60rpx;
+}
+
+.circle-wrap {
+  position: relative;
+  width: 420rpx;
+  height: 420rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 主圆：随 scale 动画 */
+.circle {
+  width: 320rpx;
+  height: 320rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%,
+    var(--accent-border), var(--accent-soft) 70%);
+  border: 2rpx solid var(--accent-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 2s ease-in-out, background 0.4s ease;
+  will-change: transform;
+}
+
+.circle-label {
+  font-size: 44rpx;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 8rpx;
+  text-indent: 8rpx;
+}
+
+.circle-count {
+  font-size: 30rpx;
+  color: var(--sub);
+  margin-top: 8rpx;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 背景涟漪：持续缓慢扩散 */
+@keyframes ripple {
+  0% { transform: scale(0.85); opacity: 0.5; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+
+.ripple {
+  position: absolute;
+  width: 320rpx;
+  height: 320rpx;
+  border-radius: 50%;
+  border: 1rpx solid var(--accent-border);
+  animation: ripple 5s ease-out infinite;
+}
+
+.ripple.r2 {
+  animation-delay: 2.5s;
+}
+
+.cycle-info {
+  margin-top: 40rpx;
+  font-size: 26rpx;
+  color: var(--sub);
+}
+
+/* 开始按钮 */
+.breathe-btn {
+  text-align: center;
+  padding: 28rpx 0;
+  border-radius: 24rpx;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.breathe-btn.stop {
+  background: var(--card);
+  color: var(--danger);
+  border: 1rpx solid rgba(255, 157, 157, 0.4);
+}

@@ -1,0 +1,254 @@
+/* app.wxss —— 全局样式：深浅双主题（CSS 变量） */
+
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+    'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 28rpx;
+  line-height: 1.6;
+  background: #0f1420;
+}
+
+/* ================= 主题变量 ================= */
+/* 深色：深夜助眠 */
+.theme-dark {
+  --bg: #0a0e18;
+  --bg-grad-a: #0a0e18;
+  --bg-grad-b: #0e1424;
+  --bg-grad-c: #0a0e18;
+  --orb-a: rgba(126, 224, 195, 0.07);
+  --orb-b: rgba(99, 132, 255, 0.06);
+  --card: rgba(255, 255, 255, 0.055);
+  --card-hover: rgba(255, 255, 255, 0.10);
+  --border: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --highlight: rgba(255, 255, 255, 0.10);
+  --bar-glass: rgba(14, 20, 36, 0.60);
+  --text: #eef1f7;
+  --sub: #98a1b3;
+  --faint: #5c6579;
+  --accent: #7ee0c3;
+  --accent-soft: rgba(126, 224, 195, 0.10);
+  --accent-border: rgba(126, 224, 195, 0.40);
+  --accent-text: #0a0e18;
+  --danger: #ff9d9d;
+  --shadow: rgba(0, 0, 0, 0.4);
+  --glow: rgba(126, 224, 195, 0.35);
+}
+
+/* 浅色：清晨专注 */
+.theme-light {
+  --bg: #f4f6fa;
+  --bg-grad-a: #f7f9fc;
+  --bg-grad-b: #eef1f7;
+  --bg-grad-c: #f2f4f9;
+  --orb-a: rgba(13, 156, 119, 0.06);
+  --orb-b: rgba(99, 132, 255, 0.05);
+  --card: rgba(255, 255, 255, 0.62);
+  --card-hover: rgba(255, 255, 255, 0.85);
+  --border: rgba(15, 20, 32, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.70);
+  --highlight: rgba(255, 255, 255, 0.95);
+  --bar-glass: rgba(255, 255, 255, 0.60);
+  --text: #1a2230;
+  --sub: #5f6a7c;
+  --faint: #a0aab9;
+  --accent: #0d9c77;
+  --accent-soft: rgba(13, 156, 119, 0.09);
+  --accent-border: rgba(13, 156, 119, 0.38);
+  --accent-text: #ffffff;
+  --danger: #d9534f;
+  --shadow: rgba(28, 36, 51, 0.08);
+  --glow: rgba(13, 156, 119, 0.22);
+}
+
+/* ================= 通用组件 ================= */
+
+/* 页面容器：根节点挂主题类，氛围光跟随 */
+.page {
+  position: relative;
+  padding: 30rpx 30rpx 60rpx;
+  box-sizing: border-box;
+  min-height: 100vh;
+  color: var(--text);
+  background: var(--bg);
+  transition: background 0.4s ease;
+  overflow: hidden;
+}
+
+/* 氛围光斑：两团柔和的径向渐变，营造空间感与品牌气质 */
+.page::before,
+.page::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page::before {
+  width: 720rpx;
+  height: 720rpx;
+  top: -240rpx;
+  right: -200rpx;
+  background: radial-gradient(circle, var(--orb-a), transparent 70%);
+}
+
+.page::after {
+  width: 640rpx;
+  height: 640rpx;
+  bottom: -180rpx;
+  left: -220rpx;
+  background: radial-gradient(circle, var(--orb-b), transparent 70%);
+}
+
+/* 页面内容整体抬升到氛围光之上 */
+.page > view {
+  position: relative;
+  z-index: 1;
+}
+
+/* 页面需要避开底部悬浮控制条时的内边距 */
+.page-tab {
+  padding-bottom: 340rpx;
+}
+
+/* 卡片：液态玻璃质感 */
+.card {
+  background: var(--card);
+  border: 1rpx solid var(--glass-border);
+  border-radius: 36rpx;
+  padding: 30rpx;
+  box-sizing: border-box;
+  box-shadow: 0 8rpx 40rpx var(--shadow), inset 0 2rpx 0 var(--highlight);
+  backdrop-filter: blur(48rpx) saturate(1.7);
+  -webkit-backdrop-filter: blur(48rpx) saturate(1.7);
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.25s ease;
+}
+
+/* 区块标题：小字号 + 宽字距的「大牌式」标签 */
+.section-title {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  font-weight: 500;
+  color: var(--faint);
+  margin: 36rpx 8rpx 24rpx;
+  letter-spacing: 8rpx;
+  text-transform: uppercase;
+}
+
+/* 标签前的短横线，比色块更克制 */
+.section-title::before {
+  content: '';
+  width: 28rpx;
+  height: 2rpx;
+  background: var(--accent);
+  margin-right: 16rpx;
+  opacity: 0.8;
+}
+
+/* 弹窗 */
+.mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(5, 8, 15, 0.72);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  width: 600rpx;
+  background: var(--bar-glass);
+  border: 1rpx solid var(--glass-border);
+  border-radius: 36rpx;
+  padding: 40rpx;
+  box-sizing: border-box;
+  color: var(--text);
+  box-shadow: 0 16rpx 60rpx rgba(0, 0, 0, 0.4), inset 0 2rpx 0 var(--highlight);
+  backdrop-filter: blur(60rpx) saturate(1.7);
+  -webkit-backdrop-filter: blur(60rpx) saturate(1.7);
+}
+
+.modal-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 36rpx;
+  color: var(--text);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 24rpx;
+  margin-top: 36rpx;
+}
+
+.btn-primary {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  border-radius: 18rpx;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+.btn-text {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  border-radius: 18rpx;
+  background: var(--card);
+  color: var(--sub);
+}
+
+/* 输入框 */
+.input {
+  background: var(--card);
+  border: 1rpx solid var(--border);
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  color: var(--text);
+  font-size: 28rpx;
+}
+
+.ph {
+  color: var(--faint);
+}
+
+/* 均衡器动画（播放中的声音卡片） */
+@keyframes eq {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+.eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 4rpx;
+  height: 22rpx;
+  margin-left: 8rpx;
+}
+
+.eq-bar {
+  width: 6rpx;
+  height: 100%;
+  border-radius: 3rpx;
+  background: var(--accent);
+  transform-origin: bottom;
+  animation: eq 0.9s ease-in-out infinite;
+}
+
+.eq-bar:nth-child(2) { animation-delay: 0.2s; }
+.eq-bar:nth-child(3) { animation-delay: 0.45s; }
+
+/* 呼吸光晕（播放中卡片的外发光） */
+@keyframes breathe-glow {
+  0%, 100% { box-shadow: 0 0 20rpx var(--glow); }
+  50% { box-shadow: 0 0 44rpx var(--glow); }
+}

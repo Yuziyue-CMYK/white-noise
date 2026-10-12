@@ -1,0 +1,37 @@
+<!-- pages/breathe/breathe.wxml —— 呼吸训练 -->
+<view class="page {{theme === 'light' ? 'theme-light' : 'theme-dark'}}">
+
+  <view class="section-title">呼吸模式</view>
+  <view class="modes">
+    <view
+      class="mode {{modeIdx === index ? 'on' : ''}}"
+      wx:for="{{modes}}"
+      wx:key="name"
+      bindtap="pickMode"
+      data-idx="{{index}}">
+      <view class="mode-name">{{item.name}}</view>
+      <view class="mode-desc">{{item.desc}}</view>
+    </view>
+  </view>
+
+  <!-- 呼吸圆 -->
+  <view class="stage">
+    <view class="circle-wrap">
+      <view class="ripple r1"></view>
+      <view class="ripple r2"></view>
+      <view
+        class="circle"
+        style="transform: scale({{scale}}); transition-duration: {{transDur}}s;">
+        <view class="circle-label">{{label}}</view>
+        <view class="circle-count" wx:if="{{running}}">{{countdown}}</view>
+      </view>
+    </view>
+    <view class="cycle-info" wx:if="{{running}}">已完成 {{cycleCount}} 轮呼吸</view>
+    <view class="cycle-info" wx:else>跟随圆圈的放大缩小，用鼻子呼吸</view>
+  </view>
+
+  <view class="breathe-btn {{running ? 'stop' : ''}}" bindtap="toggle">
+    {{running ? '停止' : '开始训练'}}
+  </view>
+
+</view>

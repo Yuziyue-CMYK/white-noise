@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/scenes/scenes",
+    "pages/focus/focus",
+    "pages/pomodoro/pomodoro",
+    "pages/breathe/breathe",
+    "pages/meditate/meditate",
+    "pages/about/about"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#0f1420",
+    "navigationBarTitleText": "静界 · 白噪声",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0f1420",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#8a93a6",
+    "selectedColor": "#7ee0c3",
+    "backgroundColor": "#141a2a",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "播放"
+      },
+      {
+        "pagePath": "pages/scenes/scenes",
+        "text": "场景"
+      },
+      {
+        "pagePath": "pages/focus/focus",
+        "text": "专注"
+      },
+      {
+        "pagePath": "pages/about/about",
+        "text": "关于"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}
