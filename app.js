@@ -14,6 +14,8 @@ App({
   },
 
   onLaunch() {
+    // 声音不受手机静音键影响（演示时不怕拨到静音）
+    wx.setInnerAudioOption({ obeyMuteSwitch: false })
     // 惰性创建引擎：真正初始化需要用户点击（小程序音频策略）
     this.globalData.engine = new SoundEngine()
   }

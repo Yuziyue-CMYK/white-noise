@@ -523,9 +523,12 @@ Page({
     const engine = app.globalData.engine
     const playing = this.data.sounds.filter(s => s.playing)
     this.setData({ allPlaying: playing.length > 0 })
-    const volumes = {}
-    playing.forEach(s => { volumes[s.id] = s.volume / 100 })
-    wx.setStorageSync('last_mix', { volumes, savedAt: Date.now() })
+    // 只在有声音在播时才存，暂停时不要覆盖（否则恢复现场为空，播放键失效）
+    if (playing.length > 0) {
+      const volumes = {}
+      playing.forEach(s => { volumes[s.id] = s.volume / 100 })
+      wx.setStorageSync('last_mix', { volumes, savedAt: Date.now() })
+    }
     this._updateMood(playing)
   },
 
